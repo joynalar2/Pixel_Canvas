@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PixelCanvas — Web Design & Development</title>
+  <meta
+    name="description"
+    content="PixelCanvas creates modern, responsive and high-performing websites for businesses, brands and professionals."
+  />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            display: ["Poppins", "sans-serif"],
+          },
+          colors: {
+            sea: {
+              950: "#032B2B",
+              900: "#063F3F",
+              800: "#075A58",
+              700: "#08706C",
+              600: "#0A827C",
+            }
+          },
+          boxShadow: {
+            glow: "0 0 40px rgba(255, 85, 40, 0.18)",
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #031f20;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ff3d32, #ff8a00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #ff3d32, #ff8a00);
+    }
+
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .glass {
+      background: rgba(255,255,255,.045);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all .7s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .floating {
+      animation: floating 5s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+  </style>
+</head>
+
+<body class="font-sans text-white">
+
+  <!-- ================= HEADER ================= -->
+  <header
+    id="header"
+    class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#031f20]/80 backdrop-blur-xl"
+  >
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <nav class="h-20 flex items-center justify-between">
+
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center font-display font-extrabold text-lg"
+          >
+            P
+          </div>
+
+          <div>
+            <div class="font-display font-extrabold text-xl tracking-tight">
+              Pixel<span class="gradient-text">Canvas</span>
+            </div>
+            <div class="text-[10px] tracking-[.25em] text-white/40">
+              DIGITAL STUDIO
+            </div>
+          </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden lg:flex items-center gap-8 text-sm text-white/70">
+          <a href="#services" class="hover:text-white transition">Services</a>
+          <a href="#projects" class="hover:text-white transition">Projects</a>
+          <a href="#about" class="hover:text-white transition">About</a>
+          <a href="#team" class="hover:text-white transition">Team</a>
+          <a href="#reviews" class="hover:text-white transition">Reviews</a>
+          <a href="#contact" class="hover:text-white transition">Contact</a>
+        </div>
+
+        <div class="hidden lg:block">
+          <a
+            href="#contact"
+            class="gradient-bg px-5 py-3 rounded-full text-sm font-bold hover:scale-105 transition inline-block shadow-glow"
+          >
+            Start a Project
+          </a>
+        </div>
+
+        <!-- Mobile Button -->
+        <button
+          id="menuBtn"
+          class="lg:hidden w-11 h-11 rounded-xl glass flex items-center justify-center"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="hidden lg:hidden pb-5">
+        <div class="glass rounded-2xl p-4 space-y-2">
+          <a href="#services" class="mobile-link block px-4 py-3 rounded-xl hover:bg-white/5">Services</a>
+          <a href="#projects" class="mobile-link block px-4 py-3 rounded-xl hover:bg-white/5">Projects</a>
+          <a href="#about" class="mobile-link block px-4 py-3 rounded-xl hover:bg-white/5">About</a>
+          <a href="#team" class="mobile-link block px-4 py-3 rounded-xl hover:bg-white/5">Team</a>
+          <a href="#reviews" class="mobile-link block px-4 py-3 rounded-xl hover:bg-white/5">Reviews</a>
+          <a href="#contact" class="mobile-link block px-4 py-3 rounded-xl hover:bg-white/5">Contact</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ================= HERO ================= -->
+  <section
+    id="home"
+    class="relative min-h-screen pt-32 pb-20 overflow-hidden hero-grid"
+  >
+    <!-- Background Glow -->
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-orange-500/10 blur-[120px] rounded-full"></div>
+    <div class="absolute bottom-0 -left-40 w-96 h-96 bg-teal-500/10 blur-[120px] rounded-full"></div>
+
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-16 items-center min-h-[75vh]">
+
+        <!-- Left -->
+        <div class="reveal">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-white/70 mb-7"
+          >
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            Available for new projects
+          </div>
+
+          <h1
+            class="font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight"
+          >
+            We turn your
+            <span class="gradient-text">ideas</span>
+            into powerful websites.
+          </h1>
+
+          <p class="mt-7 text-lg text-white/60 max-w-xl leading-8">
+            PixelCanvas creates modern, responsive and conversion-focused
+            websites that help businesses build trust, attract customers and
+            grow online.
+          </p>
+
+          <div class="mt-9 flex flex-col sm:flex-row gap-4">
+            <a
+              href="#contact"
+              class="gradient-bg px-7 py-4 rounded-full font-bold text-center hover:scale-105 transition shadow-glow"
+            >
+              Start Your Project →
+            </a>
+
+            <a
+              href="#projects"
+              class="px-7 py-4 rounded-full border border-white/10 bg-white/5 font-semibold text-center hover:bg-white/10 transition"
+            >
+              View Our Work
+            </a>
+          </div>
+
+          <div class="mt-10 flex flex-wrap gap-7 text-sm text-white/50">
+            <span>✓ Responsive Design</span>
+            <span>✓ Modern UI/UX</span>
+            <span>✓ Mobile Friendly</span>
+          </div>
+        </div>
+
+
+        <!-- Right Website Mockup -->
+        <div class="relative reveal">
+          <div class="absolute inset-0 gradient-bg opacity-10 blur-3xl rounded-full"></div>
+
+          <div class="relative glass rounded-3xl p-3 shadow-2xl floating">
+
+            <!-- Browser -->
+            <div class="rounded-2xl overflow-hidden bg-[#081b1c]">
+
+              <div class="h-12 border-b border-white/10 flex items-center px-5 gap-2">
+                <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                <span class="w-3 h-3 rounded-full bg-green-400"></span>
+
+                <div class="ml-4 flex-1 h-7 rounded-lg bg-white/5 text-xs text-white/30 flex items-center px-4">
+                  yourbusiness.com
+                </div>
+              </div>
+
+              <div class="p-7 md:p-10">
+                <div class="flex justify-between items-center mb-14">
+                  <div class="font-bold text-xl">
+                    YOUR<span class="gradient-text">BRAND</span>
+                  </div>
+
+                  <div class="hidden sm:flex gap-5 text-xs text-white/40">
+                    <span>Home</span>
+                    <span>Services</span>
+                    <span>About</span>
+                  </div>
+                </div>
+
+                <div class="max-w-md">
+                  <div class="text-xs gradient-text font-bold mb-4">
+                    DIGITAL EXPERIENCE
+                  </div>
+
+                  <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">
+                    Build a brand people remember.
+                  </h2>
+
+                  <p class="text-sm text-white/40 mt-4 leading-6">
+                    A modern digital experience designed around your customers
+                    and your business goals.
+                  </p>
+
+                  <button class="gradient-bg mt-7 px-5 py-3 rounded-lg text-xs font-bold">
+                    Explore More
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3 mt-12">
+                  <div class="h-20 rounded-xl bg-white/5"></div>
+                  <div class="h-20 rounded-xl bg-white/5"></div>
+                  <div class="h-20 rounded-xl bg-white/5"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating card -->
+          <div class="absolute -bottom-5 -left-5 glass rounded-2xl px-5 py-4 hidden md:block">
+            <div class="text-xs text-white/40">PROJECT SUCCESS</div>
+            <div class="text-xl font-bold mt-1">
+              <span class="gradient-text">100%</span>
+              Satisfaction
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= TRUST ================= -->
+  <section class="border-y border-white/5 bg-white/[.015]">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-10">
+      <p class="text-center text-xs uppercase tracking-[.3em] text-white/30 mb-7">
+        Trusted by businesses & growing brands
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center text-center">
+        <div class="text-white/35 font-bold">BRAND ONE</div>
+        <div class="text-white/35 font-bold">NOVA</div>
+        <div class="text-white/35 font-bold">TECHLAB</div>
+        <div class="text-white/35 font-bold">CREATIVE CO.</div>
+        <div class="text-white/35 font-bold">STARTUP X</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= SERVICES ================= -->
+  <section id="services" class="py-24">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div class="max-w-2xl reveal">
+        <span class="gradient-text text-sm font-bold uppercase tracking-[.2em]">
+          What we do
+        </span>
+
+        <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-4">
+          Websites built around your business.
+        </h2>
+
+        <p class="text-white/50 mt-5 leading-7">
+          From a simple business website to a complete online store,
+          we create digital experiences designed to make your brand stand out.
+        </p>
+      </div>
+
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
+
+        <!-- Service -->
+        <div class="glass rounded-3xl p-7 hover:-translate-y-2 transition duration-300 reveal">
+          <div class="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center text-xl mb-7">
+            ◈
+          </div>
+
+          <h3 class="text-xl font-bold">Business Website</h3>
+          <p class="text-white/45 mt-3 leading-6">
+            Professional websites that establish trust and turn visitors into customers.
+          </p>
+
+          <div class="mt-6 text-sm text-white/50">
+            ✓ Modern UI &nbsp; ✓ Responsive &nbsp; ✓ SEO-ready
+          </div>
+        </div>
+
+
+        <div class="glass rounded-3xl p-7 hover:-translate-y-2 transition duration-300 reveal">
+          <div class="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center text-xl mb-7">
+            🛒
+          </div>
+
+          <h3 class="text-xl font-bold">E-commerce Website</h3>
+          <p class="text-white/45 mt-3 leading-6">
+            Beautiful online stores designed to make shopping simple and increase sales.
+          </p>
+
+          <div class="mt-6 text-sm text-white/50">
+            ✓ Products &nbsp; ✓ Cart &nbsp; ✓ Checkout
+          </div>
+        </div>
+
+
+        <div class="glass rounded-3xl p-7 hover:-translate-y-2 transition duration-300 reveal">
+          <div class="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center text-xl mb-7">
+            🎯
+          </div>
+
+          <h3 class="text-xl font-bold">Landing Pages</h3>
+          <p class="text-white/45 mt-3 leading-6">
+            High-impact landing pages created for ads, campaigns, products and lead generation.
+          </p>
+
+          <div class="mt-6 text-sm text-white/50">
+            ✓ CTA-focused &nbsp; ✓ Fast &nbsp; ✓ Mobile-first
+          </div>
+        </div>
+
+
+        <div class="glass rounded-3xl p-7 hover:-translate-y-2 transition duration-300 reveal">
+          <div class="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center text-xl mb-7">
+            ✦
+          </div>
+
+          <h3 class="text-xl font-bold">UI/UX Design</h3>
+          <p class="text-white/45 mt-3 leading-6">
+            Clean and intuitive interfaces that make websites easier and more enjoyable to use.
+          </p>
+
+          <div class="mt-6 text-sm text-white/50">
+            ✓ Wireframes &nbsp; ✓ UI &nbsp; ✓ UX
+          </div>
+        </div>
+
+
+        <div class="glass rounded-3xl p-7 hover:-translate-y-2 transition duration-300 reveal">
+          <div class="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center text-xl mb-7">
+            ↻
+          </div>
+
+          <h3 class="text-xl font-bold">Website Redesign</h3>
+          <p class="text-white/45 mt-3 leading-6">
+            Transform an outdated website into a modern, responsive digital experience.
+          </p>
+
+          <div class="mt-6 text-sm text-white/50">
+            ✓ Modernization &nbsp; ✓ UX &nbsp; ✓ Responsive
+          </div>
+        </div>
+
+
+        <div class="glass rounded-3xl p-7 hover:-translate-y-2 transition duration-300 reveal">
+          <div class="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center text-xl mb-7">
+            ⚡
+          </div>
+
+          <h3 class="text-xl font-bold">Website Optimization</h3>
+          <p class="text-white/45 mt-3 leading-6">
+            Improve website speed, usability and overall performance.
+          </p>
+
+          <div class="mt-6 text-sm text-white/50">
+            ✓ Speed &nbsp; ✓ Mobile &nbsp; ✓ Performance
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects" class="py-24 bg-black/10">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div class="flex flex-col md:flex-row justify-between md:items-end gap-6 reveal">
+        <div>
+          <span class="gradient-text text-sm font-bold uppercase tracking-[.2em]">
+            Our work
+          </span>
+
+          <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-4">
+            Selected projects.
+          </h2>
+        </div>
+
+        <a href="#contact" class="text-sm font-bold text-white/60 hover:text-white">
+          Start a project →
+        </a>
+      </div>
+
+
+      <div class="grid md:grid-cols-2 gap-6 mt-14">
+
+        <!-- Project 1 -->
+        <article class="group reveal">
+          <div class="rounded-3xl overflow-hidden glass">
+
+            <div class="aspect-[16/10] bg-gradient-to-br from-teal-900 to-[#07191a] p-7">
+              <div class="h-full rounded-2xl bg-white/[.06] border border-white/10 p-6">
+                <div class="flex justify-between">
+                  <span class="font-bold">NOVA</span>
+                  <span class="text-xs text-white/30">E-COMMERCE</span>
+                </div>
+
+                <div class="mt-14">
+                  <div class="w-2/3 h-5 bg-white/10 rounded"></div>
+                  <div class="w-1/2 h-3 bg-white/5 rounded mt-3"></div>
+
+                  <div class="grid grid-cols-3 gap-3 mt-8">
+                    <div class="h-24 rounded-xl bg-white/5"></div>
+                    <div class="h-24 rounded-xl bg-white/5"></div>
+                    <div class="h-24 rounded-xl bg-white/5"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6">
+              <h3 class="text-xl font-bold">Nova E-commerce</h3>
+              <p class="text-white/40 text-sm mt-2">
+                A modern online store focused on product discovery and conversion.
+              </p>
+            </div>
+          </div>
+        </article>
+
+
+        <!-- Project 2 -->
+        <article class="group reveal">
+          <div class="rounded-3xl overflow-hidden glass">
+
+            <div class="aspect-[16/10] bg-gradient-to-br from-orange-950 to-[#07191a] p-7">
+              <div class="h-full rounded-2xl bg-white/[.06] border border-white/10 p-6">
+                <div class="flex justify-between">
+                  <span class="font-bold">CREATIVE</span>
+                  <span class="text-xs text-white/30">AGENCY</span>
+                </div>
+
+                <div class="mt-14">
+                  <div class="w-3/4 h-6 bg-white/10 rounded"></div>
+                  <div class="w-2/3 h-3 bg-white/5 rounded mt-3"></div>
+
+                  <div class="mt-8 gradient-bg rounded-xl h-20 opacity-70"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6">
+              <h3 class="text-xl font-bold">Creative Agency</h3>
+              <p class="text-white/40 text-sm mt-2">
+                A bold agency website designed to showcase services and portfolio.
+              </p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="py-24">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+        <div class="reveal">
+          <span class="gradient-text text-sm font-bold uppercase tracking-[.2em]">
+            About PixelCanvas
+          </span>
+
+          <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-4 leading-tight">
+            More than a website.
+            <br />
+            <span class="text-white/40">A digital foundation.</span>
+          </h2>
+        </div>
+
+        <div class="reveal">
+          <p class="text-white/60 leading-8 text-lg">
+            PixelCanvas is a creative web design and development studio focused
+            on helping businesses build a strong online presence.
+          </p>
+
+          <p class="text-white/40 leading-7 mt-5">
+            We combine thoughtful design, clean development and user-focused
+            experiences to create websites that don't just look good — they
+            communicate your brand and support your business goals.
+          </p>
+
+          <div class="grid grid-cols-3 gap-5 mt-10">
+            <div>
+              <div class="text-3xl font-extrabold gradient-text">100%</div>
+              <div class="text-xs text-white/40 mt-2">Responsive</div>
+            </div>
+
+            <div>
+              <div class="text-3xl font-extrabold gradient-text">24/7</div>
+              <div class="text-xs text-white/40 mt-2">Online Presence</div>
+            </div>
+
+            <div>
+              <div class="text-3xl font-extrabold gradient-text">1:1</div>
+              <div class="text-xs text-white/40 mt-2">Client Support</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= TEAM ================= -->
+  <section id="team" class="py-24 bg-white/[.015]">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div class="text-center max-w-2xl mx-auto reveal">
+        <span class="gradient-text text-sm font-bold uppercase tracking-[.2em]">
+          The people behind PixelCanvas
+        </span>
+
+        <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-4">
+          Small team. Big ideas.
+        </h2>
+      </div>
+
+
+      <div class="max-w-3xl mx-auto mt-14 grid sm:grid-cols-2 gap-6">
+
+        <div class="glass rounded-3xl p-7 text-center reveal">
+          <div class="w-24 h-24 mx-auto rounded-full gradient-bg flex items-center justify-center text-3xl font-bold">
+            JR
+          </div>
+
+          <h3 class="text-xl font-bold mt-6">Joynal Abedin</h3>
+          <p class="gradient-text text-sm font-semibold mt-1">
+            Founder & Web Developer
+          </p>
+
+          <p class="text-white/40 text-sm leading-6 mt-4">
+            Focused on modern web experiences, development and digital solutions.
+          </p>
+        </div>
+
+
+        <div class="glass rounded-3xl p-7 text-center reveal">
+          <div class="w-24 h-24 mx-auto rounded-full bg-white/10 flex items-center justify-center text-3xl font-bold">
+            PC
+          </div>
+
+          <h3 class="text-xl font-bold mt-6">PixelCanvas Team</h3>
+          <p class="gradient-text text-sm font-semibold mt-1">
+            Creative & Development
+          </p>
+
+          <p class="text-white/40 text-sm leading-6 mt-4">
+            A growing team working together to create useful digital experiences.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section id="reviews" class="py-24">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div class="text-center reveal">
+        <span class="gradient-text text-sm font-bold uppercase tracking-[.2em]">
+          Client feedback
+        </span>
+
+        <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-4">
+          What clients say.
+        </h2>
+      </div>
+
+
+      <div class="grid md:grid-cols-3 gap-5 mt-14">
+
+        <div class="glass rounded-3xl p-7 reveal">
+          <div class="text-orange-400 text-lg">★★★★★</div>
+
+          <p class="text-white/60 leading-7 mt-5">
+            “The website looks professional, loads smoothly and works perfectly
+            on mobile. Exactly what we needed.”
+          </p>
+
+          <div class="mt-7">
+            <div class="font-bold">Client Name</div>
+            <div class="text-xs text-white/35 mt-1">Business Owner</div>
+          </div>
+        </div>
+
+
+        <div class="glass rounded-3xl p-7 reveal">
+          <div class="text-orange-400 text-lg">★★★★★</div>
+
+          <p class="text-white/60 leading-7 mt-5">
+            “PixelCanvas understood our requirements and transformed our idea
+            into a clean and modern website.”
+          </p>
+
+          <div class="mt-7">
+            <div class="font-bold">Client Name</div>
+            <div class="text-xs text-white/35 mt-1">Entrepreneur</div>
+          </div>
+        </div>
+
+
+        <div class="glass rounded-3xl p-7 reveal">
+          <div class="text-orange-400 text-lg">★★★★★</div>
+
+          <p class="text-white/60 leading-7 mt-5">
+            “Great communication, clean design and a very professional final
+            result.”
+          </p>
+
+          <div class="mt-7">
+            <div class="font-bold">Client Name</div>
+            <div class="text-xs text-white/35 mt-1">Brand Owner</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= PAYMENT ================= -->
+  <section id="payment" class="py-24 bg-white/[.015]">
+    <div class="max-w-5xl mx-auto px-5 lg:px-8">
+
+      <div class="text-center reveal">
+        <span class="gradient-text text-sm font-bold uppercase tracking-[.2em]">
+          Secure your project
+        </span>
+
+        <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-4">
+          Complete your order.
+        </h2>
+
+        <p class="text-white/40 mt-4">
+          Choose your payment method and submit your project information.
+        </p>
+      </div>
+
+
+      <div class="grid lg:grid-cols-2 gap-6 mt-14">
+
+        <!-- Payment Methods -->
+        <div class="glass rounded-3xl p-7 reveal">
+
+          <h3 class="text-xl font-bold">Payment Method</h3>
+
+          <div class="space-y-4 mt-7">
+
+            <label class="block cursor-pointer">
+              <input
+                type="radio"
+                name="payment"
+                value="bKash"
+                class="hidden peer"
+                checked
+              />
+
+              <div class="rounded-2xl border border-white/10 p-5 peer-checked:border-orange-500 peer-checked:bg-orange-500/5 transition">
+                <div class="flex justify-between">
+                  <div>
+                    <div class="font-bold">bKash</div>
+                    <div class="text-xs text-white/40 mt-1">
+                      Send Money
+                    </div>
+                  </div>
+
+                  <span class="text-pink-400 font-bold">bKash</span>
+                </div>
+
+                <div class="mt-5 text-sm text-white/60">
+                  Send payment to:
+                  <strong class="text-white">+8801679338669</strong>
+                </div>
+              </div>
+            </label>
+
+
+            <label class="block cursor-pointer">
+              <input
+                type="radio"
+                name="payment"
+                value="Cash on Delivery"
+                class="hidden peer"
+              />
+
+              <div class="rounded-2xl border border-white/10 p-5 peer-checked:border-orange-500 peer-checked:bg-orange-500/5 transition">
+                <div class="flex justify-between">
+                  <div>
+                    <div class="font-bold">Cash on Delivery</div>
+                    <div class="text-xs text-white/40 mt-1">
+                      Available for eligible projects
+                    </div>
+                  </div>
+
+                  <span class="text-green-400">CASH</span>
+                </div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+
+        <!-- Order Form -->
+        <div class="glass rounded-3xl p-7 reveal">
+
+          <h3 class="text-xl font-bold">Project Information</h3>
+
+          <form id="orderForm" class="space-y-4 mt-7">
+
+            <input
+              required
+              type="text"
+              placeholder="Full Name"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 outline-none focus:border-orange-500"
+            />
+
+            <input
+              required
+              type="tel"
+              placeholder="Mobile Number"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 outline-none focus:border-orange-500"
+            />
+
+            <input
+              required
+              type="email"
+              placeholder="Email Address"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 outline-none focus:border-orange-500"
+            />
+
+            <input
+              type="text"
+              maxlength="4"
+              placeholder="bKash Last 4 Digits"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 outline-none focus:border-orange-500"
+            />
+
+            <input
+              required
+              type="text"
+              placeholder="Address"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 outline-none focus:border-orange-500"
+            />
+
+            <textarea
+              rows="4"
+              placeholder="Project Note / Requirements"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 outline-none focus:border-orange-500 resize-none"
+            ></textarea>
+
+            <button
+              type="submit"
+              class="w-full gradient-bg py-4 rounded-xl font-bold hover:scale-[1.02] transition shadow-glow"
+            >
+              Submit Project Request →
+            </button>
+
+            <p id="formMessage" class="text-sm text-center hidden"></p>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="py-24">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+      <div class="grid lg:grid-cols-2 gap-8">
+
+        <div class="reveal">
+
+          <span class="gradient-text text-sm font-bold uppercase tracking-[.2em]">
+            Let's talk
+          </span>
+
+          <h2 class="font-display text-4xl md:text-6xl font-extrabold mt-4 leading-tight">
+            Ready to build
+            <span class="gradient-text">something great?</span>
+          </h2>
+
+          <p class="text-white/45 mt-6 leading-7 max-w-lg">
+            Tell us about your business, idea or project. We'll help you
+            turn it into a professional digital experience.
+          </p>
+
+
+          <div class="space-y-5 mt-10">
+
+            <a
+              href="tel:+8801679338669"
+              class="flex items-center gap-4 group"
+            >
+              <div class="w-12 h-12 rounded-xl glass flex items-center justify-center">
+                ☎
+              </div>
+
+              <div>
+                <div class="text-xs text-white/30">CALL / WHATSAPP</div>
+                <div class="font-semibold group-hover:text-orange-400 transition">
+                  +8801679338669
+                </div>
+              </div>
+            </a>
+
+
+            <a
+              href="mailto:mdjoynalar@gmail.com"
+              class="flex items-center gap-4 group"
+            >
+              <div class="w-12 h-12 rounded-xl glass flex items-center justify-center">
+                ✉
+              </div>
+
+              <div>
+                <div class="text-xs text-white/30">EMAIL</div>
+                <div class="font-semibold group-hover:text-orange-400 transition">
+                  mdjoynalar@gmail.com
+                </div>
+              </div>
+            </a>
+
+
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl glass flex items-center justify-center">
+                📍
+              </div>
+
+              <div>
+                <div class="text-xs text-white/30">LOCATION</div>
+                <div class="font-semibold">
+                  Faridganj, Chandpur, Bangladesh
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- Social -->
+          <div class="flex gap-3 mt-9">
+
+            <a
+              href="https://facebook.com/joynalar69"
+              target="_blank"
+              class="w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/10 transition"
+            >
+              f
+            </a>
+
+            <a
+              href="https://www.instagram.com/joynal.ar/"
+              target="_blank"
+              class="w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/10 transition"
+            >
+              ◎
+            </a>
+
+            <a
+              href="https://github.com/joynalar69"
+              target="_blank"
+              class="w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/10 transition"
+            >
+              ◇
+            </a>
+
+            <a
+              href="https://wa.me/8801679338669"
+              target="_blank"
+              class="w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/10 transition"
+            >
+              W
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- Map / Contact Card -->
+        <div class="glass rounded-3xl p-3 reveal">
+
+          <div
+            class="h-full min-h-[450px] rounded-2xl overflow-hidden relative"
+          >
+
+            <!-- Replace with your actual Google Maps embed -->
+            <iframe
+              class="w-full h-full absolute inset-0 grayscale opacity-60"
+              src="https://www.google.com/maps?q=Faridganj,Chandpur,Bangladesh&output=embed"
+              loading="lazy"
+              title="PixelCanvas Location"
+            ></iframe>
+
+            <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#031f20] via-transparent to-transparent"></div>
+
+            <div class="absolute bottom-6 left-6 right-6 glass rounded-2xl p-5">
+
+              <div class="text-xs text-white/40 uppercase tracking-widest">
+                PixelCanvas Studio
+              </div>
+
+              <div class="font-bold text-lg mt-1">
+                Faridganj, Chandpur
+              </div>
+
+              <div class="text-sm text-white/40 mt-1">
+                Bangladesh
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= CTA ================= -->
+  <section class="py-20">
+    <div class="max-w-5xl mx-auto px-5 lg:px-8">
+
+      <div class="relative overflow-hidden rounded-[2rem] gradient-bg p-10 md:p-16 text-center reveal">
+
+        <div class="absolute inset-0 bg-black/10"></div>
+
+        <div class="relative z-10">
+          <div class="text-sm font-bold uppercase tracking-[.25em] text-white/70">
+            Start today
+          </div>
+
+          <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-4">
+            Your next website starts here.
+          </h2>
+
+          <p class="text-white/80 mt-4 max-w-xl mx-auto">
+            Let's create a website that makes your business look professional
+            and helps you grow online.
+          </p>
+
+          <a
+            href="#contact"
+            class="inline-block mt-8 bg-[#031f20] text-white px-8 py-4 rounded-full font-bold hover:scale-105 transition"
+          >
+            Start Your Project →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-white/5">
+
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-12">
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <div class="lg:col-span-2">
+
+          <div class="font-display font-extrabold text-2xl">
+            Pixel<span class="gradient-text">Canvas</span>
+          </div>
+
+          <p class="text-white/40 mt-4 max-w-sm leading-6">
+            Modern Web Design & Development for businesses, brands and
+            professionals.
+          </p>
+
+          <div class="gradient-text font-bold mt-5">
+            Design. Develop. Grow.
+          </div>
+
+        </div>
+
+
+        <div>
+          <h4 class="font-bold">Quick Links</h4>
+
+          <div class="space-y-3 mt-5 text-sm text-white/40">
+            <a href="#services" class="block hover:text-white">Services</a>
+            <a href="#projects" class="block hover:text-white">Projects</a>
+            <a href="#about" class="block hover:text-white">About</a>
+            <a href="#contact" class="block hover:text-white">Contact</a>
+          </div>
+        </div>
+
+
+        <div>
+          <h4 class="font-bold">Contact</h4>
+
+          <div class="space-y-3 mt-5 text-sm text-white/40">
+            <div>+8801679338669</div>
+            <div>+8801746654369</div>
+            <div>mdjoynalar@gmail.com</div>
+            <div>Faridganj, Chandpur</div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="border-t border-white/5 mt-12 pt-7 flex flex-col md:flex-row justify-between gap-4 text-xs text-white/30">
+
+        <div>
+          © 2026 PixelCanvas. All rights reserved.
+        </div>
+
+        <div>
+          Designed & Developed by PixelCanvas
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+
+    // Mobile Menu
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+      });
+    });
+
+
+    // Scroll Reveal Animation
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+    revealElements.forEach(element => {
+      revealObserver.observe(element);
+    });
+
+
+    // Order Form
+    const orderForm = document.getElementById("orderForm");
+    const formMessage = document.getElementById("formMessage");
+
+    orderForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      formMessage.classList.remove("hidden");
+      formMessage.classList.add("text-green-400");
+
+      formMessage.textContent =
+        "Your project request has been received. We will contact you shortly.";
+
+      orderForm.reset();
+    });
+
+
+    // Navbar background on scroll
+    const header = document.getElementById("header");
+
+    window.addEventListener("scroll", () => {
+
+      if (window.scrollY > 40) {
+        header.classList.add("shadow-xl");
+      } else {
+        header.classList.remove("shadow-xl");
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
